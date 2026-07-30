@@ -76,6 +76,7 @@
 
     .nav-actions {
       display: flex;
+      align-items: center;
       gap: 15px;
     }
 
@@ -87,12 +88,24 @@
       cursor: pointer;
       color: var(--dark);
       transition: 0.2s;
-      position: relative;
     }
 
     .btn-icon:hover {
       background: var(--primary);
       color: #fff;
+    }
+
+    .privacy-link {
+      font-size: 0.85rem;
+      color: #666;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .privacy-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
     }
 
     /* Main Layout */
@@ -307,6 +320,64 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
+    /* Privacy Policy Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #fff;
+      width: 90%;
+      max-width: 700px;
+      max-height: 80vh;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      padding: 20px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body {
+      padding: 25px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--dark);
+    }
+
+    .modal-body h3 {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+
+    .modal-body ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 <body>
@@ -322,6 +393,7 @@
       <input type="text" placeholder="Search shops, brands, or products...">
     </div>
     <div class="nav-actions">
+      <a class="privacy-link" onclick="openPrivacyModal()">Privacy Policy</a>
       <button class="btn-icon" title="Toggle Navigation"><i class="fa-solid fa-location-arrow"></i></button>
       <button class="btn-icon" id="toggleChat" title="Open Chat"><i class="fa-solid fa-comments"></i></button>
       <button class="btn-icon" title="Profile"><i class="fa-solid fa-user"></i></button>
@@ -404,11 +476,47 @@
 
   </div>
 
+  <!-- Privacy Policy Modal Window -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Privacy Policy</h2>
+        <i class="fa-solid fa-xmark" onclick="closePrivacyModal()" style="cursor: pointer; font-size: 1.2rem;"></i>
+      </div>
+      <div class="modal-body">
+        <p><strong>Effective Date:</strong> July 30, 2026</p>
+        <br>
+        <p>At <strong>ShopNAll</strong> ("we," "our," or "us"), accessible from our application and website, one of our main priorities is the privacy of our visitors and users. This Privacy Policy outlines the types of information collected and recorded by ShopNAll and how we use it.</p>
+
+        <h3>1. Information We Collect</h3>
+        <ul>
+          <li><strong>Location Data:</strong> With your permission, we collect precise or approximate real-time location data to show nearby shops and provide map navigation.</li>
+          <li><strong>Communications & Messages:</strong> Content from messages sent through our in-app chat drawer to facilitate shop inquiries.</li>
+          <li><strong>Usage & Device Information:</strong> Standard log data including IP addresses, browser types, and device information to improve user experience.</li>
+          <li><strong>Account Information:</strong> Name, email address, or contact details provided during sign-up.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We use the information to display nearby shops, enable map navigation to stores, facilitate messaging between users and merchants, and improve the app experience.</p>
+
+        <h3>3. Sharing Your Information</h3>
+        <p>We respect your privacy and do <strong>not</strong> sell your personal data. Chat messages are shared directly with the targeted shop. Location queries may be processed via map providers (e.g., Google Maps, Leaflet).</p>
+
+        <h3>4. Location Controls & Controls</h3>
+        <p>You can enable or disable location services at any time through your device settings. Disabling location services will restrict real-time map navigation.</p>
+
+        <h3>5. Contact Us</h3>
+        <p>If you have any questions or suggestions about our Privacy Policy, contact us at <strong>support@shopnall.com</strong>.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     const chatDrawer = document.getElementById('chatDrawer');
     const toggleChatBtn = document.getElementById('toggleChat');
     const closeChatBtn = document.getElementById('closeChat');
     const chatStoreName = document.getElementById('chatStoreName');
+    const privacyModal = document.getElementById('privacyModal');
 
     toggleChatBtn.addEventListener('click', () => {
       chatDrawer.classList.toggle('open');
@@ -422,6 +530,21 @@
       chatStoreName.textContent = storeName;
       chatDrawer.classList.add('open');
     }
+
+    function openPrivacyModal() {
+      privacyModal.classList.add('active');
+    }
+
+    function closePrivacyModal() {
+      privacyModal.classList.remove('active');
+    }
+
+    // Close modal when clicking outside of it
+    window.addEventListener('click', (e) => {
+      if (e.target === privacyModal) {
+        closePrivacyModal();
+      }
+    });
   </script>
 </body>
 </html>
