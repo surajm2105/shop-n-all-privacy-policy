@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopNAll - Discover, Chat & Navigate</title>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #6C5CE7;
+      --primary-hover: #5A4AD1;
+      --secondary: #00CEC9;
+      --dark: #2D3436;
+      --light: #F8F9FA;
+      --gray: #DFE6E9;
+      --chat-bg: #EFEFEF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: var(--light);
+      overflow: hidden;
+    }
+
+    /* Header Navbar */
+    header {
+      background: #fff;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--light);
+      padding: 8px 15px;
+      border-radius: 20px;
+      width: 40%;
+      border: 1px solid var(--gray);
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      margin-left: 8px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-icon {
+      background: var(--light);
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--dark);
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .btn-icon:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 70px);
+      position: relative;
+    }
+
+    /* Sidebar: Shop Discovery Feed */
+    .sidebar {
+      width: 380px;
+      background: #fff;
+      border-right: 1px solid var(--gray);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .filter-section {
+      padding: 15px 20px;
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid var(--gray);
+      overflow-x: auto;
+    }
+
+    .chip {
+      padding: 6px 14px;
+      background: var(--light);
+      border-radius: 15px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid var(--gray);
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .shop-list {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .shop-card {
+      border: 1px solid var(--gray);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s;
+      background: #fff;
+    }
+
+    .shop-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .shop-img {
+      height: 120px;
+      background: #ccc;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .shop-info {
+      padding: 12px;
+    }
+
+    .shop-info h4 {
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .shop-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .shop-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-action {
+      flex: 1;
+      padding: 6px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .btn-action.chat {
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .btn-action.nav {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Map View Container */
+    .map-container {
+      flex: 1;
+      background: #e5e3df;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-placeholder {
+      text-align: center;
+      color: #777;
+    }
+
+    /* Chat Drawer Side panel */
+    .chat-drawer {
+      position: absolute;
+      right: -350px;
+      top: 0;
+      width: 350px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+    }
+
+    .chat-drawer.open {
+      right: 0;
+    }
+
+    .chat-header {
+      padding: 15px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      background: var(--chat-bg);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+
+    .message.received {
+      background: #fff;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    .message.sent {
+      background: var(--primary);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-input {
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      background: #fff;
+      border-top: 1px solid var(--gray);
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: 1px solid var(--gray);
+      border-radius: 18px;
+      padding: 8px 12px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>ShopNAll</span>
+    </div>
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass" style="color: #888;"></i>
+      <input type="text" placeholder="Search shops, brands, or products...">
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" title="Toggle Navigation"><i class="fa-solid fa-location-arrow"></i></button>
+      <button class="btn-icon" id="toggleChat" title="Open Chat"><i class="fa-solid fa-comments"></i></button>
+      <button class="btn-icon" title="Profile"><i class="fa-solid fa-user"></i></button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <div class="main-container">
+
+    <!-- Discovery Sidebar Feed -->
+    <aside class="sidebar">
+      <div class="filter-section">
+        <div class="chip active">All</div>
+        <div class="chip">Fashion</div>
+        <div class="chip">Electronics</div>
+        <div class="chip">Cafes</div>
+        <div class="chip">Grocery</div>
+      </div>
+
+      <div class="shop-list">
+        <!-- Shop Card 1 -->
+        <div class="shop-card">
+          <div class="shop-img" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="shop-info">
+            <h4>Urban Style Boutique</h4>
+            <div class="shop-meta">
+              <span><i class="fa-solid fa-star" style="color: #f1c40f;"></i> 4.8 (120)</span>
+              <span>0.4 miles away</span>
+            </div>
+            <div class="shop-actions">
+              <button class="btn-action chat" onclick="openShopChat('Urban Style Boutique')"><i class="fa-regular fa-comment"></i> Chat</button>
+              <button class="btn-action nav"><i class="fa-solid fa-diamond-turn-right"></i> Navigate</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop Card 2 -->
+        <div class="shop-card">
+          <div class="shop-img" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80');"></div>
+          <div class="shop-info">
+            <h4>Tech & Gadgets Hub</h4>
+            <div class="shop-meta">
+              <span><i class="fa-solid fa-star" style="color: #f1c40f;"></i> 4.5 (89)</span>
+              <span>1.2 miles away</span>
+            </div>
+            <div class="shop-actions">
+              <button class="btn-action chat" onclick="openShopChat('Tech & Gadgets Hub')"><i class="fa-regular fa-comment"></i> Chat</button>
+              <button class="btn-action nav"><i class="fa-solid fa-diamond-turn-right"></i> Navigate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Map View -->
+    <main class="map-container">
+      <div class="map-placeholder">
+        <i class="fa-solid fa-map-location-dot fa-3x" style="color: var(--primary); margin-bottom: 10px;"></i>
+        <h3>Interactive Map View</h3>
+        <p>Integrate Google Maps or Leaflet.js here for live routing and local pins.</p>
+      </div>
+    </main>
+
+    <!-- Chat Drawer (In-app Messenger) -->
+    <div class="chat-drawer" id="chatDrawer">
+      <div class="chat-header">
+        <h4 id="chatStoreName">Shop Assistant</h4>
+        <i class="fa-solid fa-xmark" id="closeChat" style="cursor: pointer;"></i>
+      </div>
+      <div class="chat-messages">
+        <div class="message received">Hi! How can we help you today?</div>
+        <div class="message sent">Do you have wireless headphones in stock?</div>
+        <div class="message received">Yes, we have 3 models available! Would you like details?</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Type a message...">
+        <button><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const chatDrawer = document.getElementById('chatDrawer');
+    const toggleChatBtn = document.getElementById('toggleChat');
+    const closeChatBtn = document.getElementById('closeChat');
+    const chatStoreName = document.getElementById('chatStoreName');
+
+    toggleChatBtn.addEventListener('click', () => {
+      chatDrawer.classList.toggle('open');
+    });
+
+    closeChatBtn.addEventListener('click', () => {
+      chatDrawer.classList.remove('open');
+    });
+
+    function openShopChat(storeName) {
+      chatStoreName.textContent = storeName;
+      chatDrawer.classList.add('open');
+    }
+  </script>
+</body>
+</html>
