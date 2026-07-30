@@ -3,548 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopNAll - Discover, Chat & Navigate</title>
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <title>Privacy Policy - ShopNAll</title>
   <style>
-    :root {
-      --primary: #6C5CE7;
-      --primary-hover: #5A4AD1;
-      --secondary: #00CEC9;
-      --dark: #2D3436;
-      --light: #F8F9FA;
-      --gray: #DFE6E9;
-      --chat-bg: #EFEFEF;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      background-color: var(--light);
-      overflow: hidden;
-    }
-
-    /* Header Navbar */
-    header {
-      background: #fff;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      z-index: 10;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: var(--light);
-      padding: 8px 15px;
-      border-radius: 20px;
-      width: 40%;
-      border: 1px solid var(--gray);
-    }
-
-    .search-bar input {
-      border: none;
-      background: transparent;
-      outline: none;
-      width: 100%;
-      margin-left: 8px;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .btn-icon {
-      background: var(--light);
-      border: none;
-      padding: 10px;
-      border-radius: 50%;
-      cursor: pointer;
-      color: var(--dark);
-      transition: 0.2s;
-    }
-
-    .btn-icon:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .privacy-link {
-      font-size: 0.85rem;
-      color: #666;
-      text-decoration: none;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .privacy-link:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-
-    /* Main Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-      height: calc(100vh - 70px);
-      position: relative;
-    }
-
-    /* Sidebar: Shop Discovery Feed */
-    .sidebar {
-      width: 380px;
-      background: #fff;
-      border-right: 1px solid var(--gray);
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-
-    .filter-section {
-      padding: 15px 20px;
-      display: flex;
-      gap: 10px;
-      border-bottom: 1px solid var(--gray);
-      overflow-x: auto;
-    }
-
-    .chip {
-      padding: 6px 14px;
-      background: var(--light);
-      border-radius: 15px;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      cursor: pointer;
-      border: 1px solid var(--gray);
-    }
-
-    .chip.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    .shop-list {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .shop-card {
-      border: 1px solid var(--gray);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.2s;
-      background: #fff;
-    }
-
-    .shop-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    }
-
-    .shop-img {
-      height: 120px;
-      background: #ccc;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .shop-info {
-      padding: 12px;
-    }
-
-    .shop-info h4 {
-      margin-bottom: 5px;
-      font-size: 1rem;
-    }
-
-    .shop-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .shop-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-action {
-      flex: 1;
-      padding: 6px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-
-    .btn-action.chat {
-      background: var(--light);
-      color: var(--dark);
-    }
-
-    .btn-action.nav {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    /* Map View Container */
-    .map-container {
-      flex: 1;
-      background: #e5e3df;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .map-placeholder {
-      text-align: center;
-      color: #777;
-    }
-
-    /* Chat Drawer Side panel */
-    .chat-drawer {
-      position: absolute;
-      right: -350px;
-      top: 0;
-      width: 350px;
-      height: 100%;
-      background: #fff;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      z-index: 5;
-    }
-
-    .chat-drawer.open {
-      right: 0;
-    }
-
-    .chat-header {
-      padding: 15px;
-      background: var(--primary);
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-messages {
-      flex: 1;
-      padding: 15px;
-      background: var(--chat-bg);
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .message {
-      max-width: 80%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-    }
-
-    .message.received {
-      background: #fff;
-      align-self: flex-start;
-      border-bottom-left-radius: 2px;
-    }
-
-    .message.sent {
-      background: var(--primary);
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 2px;
-    }
-
-    .chat-input {
-      padding: 10px;
-      display: flex;
-      gap: 8px;
-      background: #fff;
-      border-top: 1px solid var(--gray);
-    }
-
-    .chat-input input {
-      flex: 1;
-      border: 1px solid var(--gray);
-      border-radius: 18px;
-      padding: 8px 12px;
-      outline: none;
-    }
-
-    .chat-input button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    /* Privacy Policy Modal */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-card {
-      background: #fff;
-      width: 90%;
-      max-width: 700px;
-      max-height: 80vh;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .modal-header {
-      padding: 20px;
-      background: var(--primary);
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-body {
-      padding: 25px;
-      overflow-y: auto;
-      font-size: 0.9rem;
+      font-family: Arial, sans-serif;
       line-height: 1.6;
-      color: var(--dark);
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
     }
-
-    .modal-body h3 {
-      margin-top: 15px;
-      margin-bottom: 5px;
-      color: var(--primary);
-    }
-
-    .modal-body ul {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
+    h1 { color: #6C5CE7; }
+    h2 { color: #2D3436; margin-top: 20px; }
+    ul { margin-bottom: 15px; }
+    li { margin-bottom: 5px; }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
-  <header>
-    <div class="logo">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span>ShopNAll</span>
-    </div>
-    <div class="search-bar">
-      <i class="fa-solid fa-magnifying-glass" style="color: #888;"></i>
-      <input type="text" placeholder="Search shops, brands, or products...">
-    </div>
-    <div class="nav-actions">
-      <a class="privacy-link" onclick="openPrivacyModal()">Privacy Policy</a>
-      <button class="btn-icon" title="Toggle Navigation"><i class="fa-solid fa-location-arrow"></i></button>
-      <button class="btn-icon" id="toggleChat" title="Open Chat"><i class="fa-solid fa-comments"></i></button>
-      <button class="btn-icon" title="Profile"><i class="fa-solid fa-user"></i></button>
-    </div>
-  </header>
+  <h1>Privacy Policy for ShopNAll</h1>
+  <p><strong>Effective Date:</strong> July 30, 2026</p>
 
-  <!-- Main Workspace -->
-  <div class="main-container">
+  <p>At <strong>ShopNAll</strong> ("we," "our," or "us"), accessible from our application and website, one of our main priorities is the privacy of our visitors and users. This Privacy Policy outlines the types of information collected and recorded by ShopNAll and how we use it.</p>
 
-    <!-- Discovery Sidebar Feed -->
-    <aside class="sidebar">
-      <div class="filter-section">
-        <div class="chip active">All</div>
-        <div class="chip">Fashion</div>
-        <div class="chip">Electronics</div>
-        <div class="chip">Cafes</div>
-        <div class="chip">Grocery</div>
-      </div>
+  <h2>1. Information We Collect</h2>
+  <p>To provide you with seamless local shop discovery, live messaging, and route navigation, we collect the following types of information:</p>
+  <ul>
+    <li><strong>Location Data:</strong> With your permission, we collect precise or approximate real-time geographic location data from your device to show nearby shops and provide turn-by-turn map navigation.</li>
+    <li><strong>Communications & Messages:</strong> Content from messages sent through our in-app chat drawer (between you and local shop owners or assistants) to facilitate your inquiries.</li>
+    <li><strong>Usage & Device Information:</strong> Standard log data including IP addresses, browser types, device information, and interactions with shop listings to improve user experience.</li>
+    <li><strong>Account Information:</strong> (If applicable) Name, email address, or contact details provided during sign-up or profile creation.</li>
+  </ul>
 
-      <div class="shop-list">
-        <!-- Shop Card 1 -->
-        <div class="shop-card">
-          <div class="shop-img" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80');"></div>
-          <div class="shop-info">
-            <h4>Urban Style Boutique</h4>
-            <div class="shop-meta">
-              <span><i class="fa-solid fa-star" style="color: #f1c40f;"></i> 4.8 (120)</span>
-              <span>0.4 miles away</span>
-            </div>
-            <div class="shop-actions">
-              <button class="btn-action chat" onclick="openShopChat('Urban Style Boutique')"><i class="fa-regular fa-comment"></i> Chat</button>
-              <button class="btn-action nav"><i class="fa-solid fa-diamond-turn-right"></i> Navigate</button>
-            </div>
-          </div>
-        </div>
+  <h2>2. How We Use Your Information</h2>
+  <p>We use the information we collect to:</p>
+  <ul>
+    <li>Display nearby shops, products, and localized deals on the map.</li>
+    <li>Enable navigation and route planning to physical store locations.</li>
+    <li>Facilitate real-time communications between users and local merchants.</li>
+    <li>Maintain, improve, and personalize the app experience.</li>
+    <li>Ensure platform safety, prevent fraud, and comply with legal requirements.</li>
+  </ul>
 
-        <!-- Shop Card 2 -->
-        <div class="shop-card">
-          <div class="shop-img" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80');"></div>
-          <div class="shop-info">
-            <h4>Tech & Gadgets Hub</h4>
-            <div class="shop-meta">
-              <span><i class="fa-solid fa-star" style="color: #f1c40f;"></i> 4.5 (89)</span>
-              <span>1.2 miles away</span>
-            </div>
-            <div class="shop-actions">
-              <button class="btn-action chat" onclick="openShopChat('Tech & Gadgets Hub')"><i class="fa-regular fa-comment"></i> Chat</button>
-              <button class="btn-action nav"><i class="fa-solid fa-diamond-turn-right"></i> Navigate</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
+  <h2>3. Sharing Your Information</h2>
+  <p>We respect your privacy and do not sell your personal data. We may share information only in the following scenarios:</p>
+  <ul>
+    <li><strong>With Merchants/Shops:</strong> Messages you send via the chat feature are shared directly with the specific shop owner or customer support representative you are communicating with.</li>
+    <li><strong>Third-Party Service Providers:</strong> We may use third-party APIs (e.g., map tile and routing services like Google Maps, Leaflet, or Mapbox) to display maps and compute directions. These providers process location queries in accordance with their privacy policies.</li>
+    <li><strong>Legal Requirements:</strong> If required by law, court order, or governmental regulations.</li>
+  </ul>
 
-    <!-- Map View -->
-    <main class="map-container">
-      <div class="map-placeholder">
-        <i class="fa-solid fa-map-location-dot fa-3x" style="color: var(--primary); margin-bottom: 10px;"></i>
-        <h3>Interactive Map View</h3>
-        <p>Integrate Google Maps or Leaflet.js here for live routing and local pins.</p>
-      </div>
-    </main>
+  <h2>4. Location Controls & Data Retention</h2>
+  <ul>
+    <li><strong>Location Permissions:</strong> You can enable or disable location services at any time through your device or browser settings. Disabling location services will restrict real-time navigation and distance-based shop discovery.</li>
+    <li><strong>Data Retention:</strong> Chat logs and profile information are stored securely only for as long as necessary to fulfill the services outlined in this policy.</li>
+  </ul>
 
-    <!-- Chat Drawer (In-app Messenger) -->
-    <div class="chat-drawer" id="chatDrawer">
-      <div class="chat-header">
-        <h4 id="chatStoreName">Shop Assistant</h4>
-        <i class="fa-solid fa-xmark" id="closeChat" style="cursor: pointer;"></i>
-      </div>
-      <div class="chat-messages">
-        <div class="message received">Hi! How can we help you today?</div>
-        <div class="message sent">Do you have wireless headphones in stock?</div>
-        <div class="message received">Yes, we have 3 models available! Would you like details?</div>
-      </div>
-      <div class="chat-input">
-        <input type="text" placeholder="Type a message...">
-        <button><i class="fa-solid fa-paper-plane"></i></button>
-      </div>
-    </div>
+  <h2>5. Third-Party Links & Services</h2>
+  <p>ShopNAll may contain links to external shop websites or third-party mapping services. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
 
-  </div>
+  <h2>6. Children's Information</h2>
+  <p>ShopNAll does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child provided this kind of information on our platform, please contact us immediately and we will promptly remove it.</p>
 
-  <!-- Privacy Policy Modal Window -->
-  <div class="modal-overlay" id="privacyModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h2>Privacy Policy</h2>
-        <i class="fa-solid fa-xmark" onclick="closePrivacyModal()" style="cursor: pointer; font-size: 1.2rem;"></i>
-      </div>
-      <div class="modal-body">
-        <p><strong>Effective Date:</strong> July 30, 2026</p>
-        <br>
-        <p>At <strong>ShopNAll</strong> ("we," "our," or "us"), accessible from our application and website, one of our main priorities is the privacy of our visitors and users. This Privacy Policy outlines the types of information collected and recorded by ShopNAll and how we use it.</p>
+  <h2>7. Changes to This Privacy Policy</h2>
+  <p>We may update our Privacy Policy from time to time. We advise you to review this page periodically for any changes. Changes are effective immediately after they are posted.</p>
 
-        <h3>1. Information We Collect</h3>
-        <ul>
-          <li><strong>Location Data:</strong> With your permission, we collect precise or approximate real-time location data to show nearby shops and provide map navigation.</li>
-          <li><strong>Communications & Messages:</strong> Content from messages sent through our in-app chat drawer to facilitate shop inquiries.</li>
-          <li><strong>Usage & Device Information:</strong> Standard log data including IP addresses, browser types, and device information to improve user experience.</li>
-          <li><strong>Account Information:</strong> Name, email address, or contact details provided during sign-up.</li>
-        </ul>
+  <h2>8. Contact Us</h2>
+  <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:</p>
+  <p><strong>Email:</strong> support@shopnall.com</p>
 
-        <h3>2. How We Use Your Information</h3>
-        <p>We use the information to display nearby shops, enable map navigation to stores, facilitate messaging between users and merchants, and improve the app experience.</p>
-
-        <h3>3. Sharing Your Information</h3>
-        <p>We respect your privacy and do <strong>not</strong> sell your personal data. Chat messages are shared directly with the targeted shop. Location queries may be processed via map providers (e.g., Google Maps, Leaflet).</p>
-
-        <h3>4. Location Controls & Controls</h3>
-        <p>You can enable or disable location services at any time through your device settings. Disabling location services will restrict real-time map navigation.</p>
-
-        <h3>5. Contact Us</h3>
-        <p>If you have any questions or suggestions about our Privacy Policy, contact us at <strong>support@shopnall.com</strong>.</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const chatDrawer = document.getElementById('chatDrawer');
-    const toggleChatBtn = document.getElementById('toggleChat');
-    const closeChatBtn = document.getElementById('closeChat');
-    const chatStoreName = document.getElementById('chatStoreName');
-    const privacyModal = document.getElementById('privacyModal');
-
-    toggleChatBtn.addEventListener('click', () => {
-      chatDrawer.classList.toggle('open');
-    });
-
-    closeChatBtn.addEventListener('click', () => {
-      chatDrawer.classList.remove('open');
-    });
-
-    function openShopChat(storeName) {
-      chatStoreName.textContent = storeName;
-      chatDrawer.classList.add('open');
-    }
-
-    function openPrivacyModal() {
-      privacyModal.classList.add('active');
-    }
-
-    function closePrivacyModal() {
-      privacyModal.classList.remove('active');
-    }
-
-    // Close modal when clicking outside of it
-    window.addEventListener('click', (e) => {
-      if (e.target === privacyModal) {
-        closePrivacyModal();
-      }
-    });
-  </script>
 </body>
 </html>
